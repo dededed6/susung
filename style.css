@@ -36,7 +36,7 @@ body {
     background-color: transparent;
     border: none;
     padding: 0%;
-    text-shadow: 0.6vh 0.6vh 0px #F59C6C;
+    text-shadow: 0.6vh 0.6vh 0px #C8F0FA;
 }
 
 #search {
@@ -66,7 +66,7 @@ p {
 }
 
 #post {
-    background-color: #F14F35;
+    background-color: #B2CFE9;
     text-shadow: 0.15vh 0.15vh 0px white;
     box-shadow: 0.5vh 0.5vh 0px #211D1F;
     border: none;
@@ -87,7 +87,7 @@ p {
     color: white;
     width: 10vh;
     height: 15vh;
-    background-color: #F14F35;
+    background-color: #B2CFE9;
     border: none;
     box-shadow: 0.5vh 0.5vh 0px #211D1F;
 }
@@ -126,7 +126,7 @@ p {
     transform: translate(-50%, -50%);
     height: 80vh;
     width: 40vh;
-    background-color: #F14F35;
+    background-color: #B2CFE9;
     box-shadow: 0.5vh 0.5vh 5vh #211D1F;
 }
 

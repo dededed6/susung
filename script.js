@@ -48,7 +48,7 @@ function post() {
 function dateChange() {
     day = new Date(date.value);
     diff = getDateDiff("2023-04-16", day)
-    content = day.getFullYear() + "." + parseInt(day.getMonth() + 1) + "." + day.getDate() + "\nD-" + diff;
+    content = day.getFullYear() + "." + parseInt(day.getMonth() + 1) + "." + day.getDate() + "\nD+" + diff;
     date_text.innerText = content;
 }
 
@@ -64,15 +64,15 @@ function fileChange() {
       }
 }
 
-/*
-function mao() {
+
+function maod() {
     const image = file.files[0];
     const fr = new FileReader();
     const url = "https://script.google.com/macros/s/AKfycbxGWGLUr6dWf0c0M0tMKPpUudf4Ax_ofZTkXNz8H-0bjYizf66eXAfEuNYtJJ2H2jVE/exec";
 
     fr.readAsArrayBuffer(image);
     fr.onload = f => {
-        const qs = new URLSearchParams({filename: image.name, mimeType: image.type});
+        const qs = new URLSearchParams({filename: date.value, mimeType: image.type});
         fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
         .then(res => res.json())
         .then(e => sendData(e.id))  // <--- You can retrieve the returned value here.
@@ -85,18 +85,15 @@ function sendData(id) {
         type: "GET",
         url: "https://script.google.com/macros/s/AKfycbxrcwkYlaT5U7bj4sMi2JFHVfsZUXnO9UL_R9jDbd-iu-vCmyxdWwMRV_cSy6YvSX2n6w/exec",
         data: {
-          "DATE": date.value,
-          "ID": id,
-          "TAGS": tags.value
+            "FLAVOR": circle.innerText,
+            "URL": "https://drive.google.com/uc?id=" + id,
+            "TEXT": text.value,
+            "DATE": date.value
         }
     });
-    data[getDateDiff("2023-4-16", date.value)] = {
-        "date": date.value,
-        "id": id,
-        "tags": tags.value
-    };
     console.log("complete");
-}*/
+    window.location.reload();
+}
 
 // 최초 실행
 window.onload=function() {
