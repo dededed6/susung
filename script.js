@@ -64,6 +64,7 @@ function fileChange() {
       }
 }
 
+/*
 function mao() {
     const image = file.files[0];
     const fr = new FileReader();
@@ -77,7 +78,9 @@ function mao() {
         .then(e => sendData(e.id))  // <--- You can retrieve the returned value here.
         .catch(err => console.log(err));
     }
-    
+}
+
+function sendData(id) {
     $.ajax({
         type: "GET",
         url: "https://script.google.com/macros/s/AKfycbxrcwkYlaT5U7bj4sMi2JFHVfsZUXnO9UL_R9jDbd-iu-vCmyxdWwMRV_cSy6YvSX2n6w/exec",
@@ -93,7 +96,7 @@ function mao() {
         "tags": tags.value
     };
     console.log("complete");
-}
+}*/
 
 // 최초 실행
 window.onload=function() {
