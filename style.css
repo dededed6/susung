@@ -41,15 +41,26 @@ body {
 
 #search {
     position: absolute;
+    top: 1vh;
     right: 1vh;
     font-family: 'PP';
     font-size: 4vh;
-    margin: 1.8vh;
+    margin: 1vh;
     color: white;
     background-color: transparent;
     border: none;
     padding: 0%;
     text-shadow: 0.6vh 0.6vh 0px #211D1F;
+}
+
+#search_date {
+    position: absolute;
+    top: 0.8vh;
+    right: 4.2vh;
+    opacity: 0;
+    height: 7vh;
+    width: 2vh;
+    transform: rotate(90deg);
 }
 
 h1 {
@@ -84,12 +95,13 @@ p {
     margin-left: 0%;
     font-size: 2vh;
     font-family: 'P';
-    color: white;
+    color: #2D2929;
     width: 10vh;
     height: 15vh;
     background-color: #B2CFE9;
     border: none;
-    box-shadow: 0.5vh 0.5vh 0px #211D1F;
+    box-shadow: 0.5vh 0.5vh 0px black;
+    text-overflow: ellipsis;
 }
 
 #detail {
@@ -100,7 +112,7 @@ p {
     width: 100%;
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     border: none;
     display: none;
 }
@@ -128,7 +140,7 @@ p {
     height: 80vh;
     width: 40vh;
     background-color: #B2CFE9;
-    box-shadow: 0.5vh 0.5vh 5vh #211D1F;
+    box-shadow: 0.5vh 0.5vh 5vh black;
 }
 
 #file_image {
@@ -150,7 +162,7 @@ p {
     left: 50%;
     transform: translate(-50%, 0);
     top: 51vh;
-    color: white;
+    color: #2D2929;
     font-size: 2.3vh;
     background-color: transparent;
     border: none;
@@ -180,7 +192,6 @@ p {
 
 #mao {
     font-family: 'PP';
-    font-size: 5vh;
     margin: 1vh;
     color: #2D2929;
     position: absolute;
@@ -190,6 +201,8 @@ p {
     border: none;
     background-color: transparent;
     transition: color 0.2s ease-in-out;
+    width: auto;
+    text-align: left;
 }
 
 #mao:active {

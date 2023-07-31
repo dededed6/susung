@@ -10,22 +10,20 @@
         <!--상단 바-->
         <div class="topbar">
             <button id="title" onClick="window.location.reload()">수성</button>
-            <button id="search">검색</p>
+            <p id="search">검색</p>
+            <input type="date" id="search_date" onchange="search()">
         </div>
+
         <!--추가하기-->
         <button id="post" onclick="post()">새로 붙이기</button>
+
         <!--포스트잇들-->
-        <div>
-            <button class="postit" id="1" onclick="postit(this.id)">텍스트</button>
-            <button class="postit" id="2" onclick="postit(this.id)">텍스트</button>
-            <button class="postit" id="3" onclick="postit(this.id)">텍스트</button>
-            <button class="postit" id="4" onclick="postit(this.id)">텍스트</button>
-            <button class="postit" id="5" onclick="postit(this.id)">텍스트</button>
-            <button class="postit" id="6" onclick="postit(this.id)">텍스트</button>
+        <div class="container">
+            <!--
+                <button class="postit" onclick="postit(this)">텍스트</button>
+            -->
         </div>
-        <!--
-            <button class="postit" onclick="postit(this)">텍스트</button>
-        -->
+
         <!--자세히-->
         <div id="detail">
             <button style="width: 99%; height: 99%; border: none; opacity: 0; top: 0; left: 0; margin: 0; padding: 0;" onclick="close_detail()"></button>
@@ -44,11 +42,12 @@
                 <h1 id="date_text">2023.4.17<br>D+1</h1>
                 <input type="date" name="date" id="date" onchange="dateChange()">
                 <!--마오-->
-                <button id="mao" onclick="maod()">마오</button>
+                <button id="mao" onclick="maoload()">마오</button>
             </div>
             <button id="circle" onclick="flavor()">행복한 맛</button>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="script.js"></script>
     </body>
 </html>

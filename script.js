@@ -1,6 +1,57 @@
+// 포스트잇 데이터
+var data = [];
 
+// 데이터 불러오기
+function readData() {
+    google.charts.load('current', { packages: ['corechart'] }).then(function () {
+        var query = new google.visualization.Query('http://spreadsheets.google.com/tq?key=1dRatFaGvJLI8vVwML96HzkJ67FmT0fIEKp31mhXk3qM&pub=1');
+        query.send(function (response) {            
+            var dataTable = response.getDataTable();
+            var jsonData = dataTable.toJSON();
+            jsonData = JSON.parse(jsonData);
 
+            for(var i=0; i < jsonData.rows.length; i++) {
+                dict = {
+                    flavor: jsonData.rows[i].c[0].v,
+                    url: jsonData.rows[i].c[1].v,
+                    text: jsonData.rows[i].c[2].v,
+                    date: jsonData.rows[i].c[3].f
+                };
+                data.push(dict);
+            }
+            post_data();
+        });
+    });
+}
 
+// 불러온 데이터들을 포스트
+const container = document.getElementsByClassName('container')[0];
+
+function post_data() {
+    data = data.sort((a,b) => (new Date(a.date).getTime() - new Date(b.date).getTime())); // 데이터 시간순 정렬
+    for(var i=0; i < data.length; i++) {
+        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)">' + data[i].text + '</button>\n'
+        container.insertAdjacentHTML('afterbegin', new_post);
+    }
+    console.log(data);
+}
+
+// 검색
+const search_date = document.getElementById("search_date");
+
+function search() {
+    var min = getDateDiff(search_date.value, data[0].date);
+    var minIndex = 0;
+    for (var i=1; i<data.length; i++) {
+        var diff = getDateDiff(search_date.value, data[i].date);
+        if (diff < min) {
+            minIndex = i;
+            min = diff;
+        }
+    }
+    const target_top = document.getElementById(minIndex).getBoundingClientRect().top;
+    window.scroll({top : target_top, behavior: 'smooth'});
+}
 
 
 // 디테일
@@ -27,13 +78,18 @@ const date_text = document.getElementById("date_text");
 const date = document.getElementById("date");
 const mao = document.getElementById("mao");
 
-function postit(e) {
+function postit(i) {
     detial.style.display = 'block';
     text.disabled = true;
     mao.disabled = true;
     date.disabled = true;
     file.disabled = true;
-    console.log(e);
+    file_image.src = data[i].url;
+    text.innerText = data[i].text;
+    date.value = data[i].date;
+    circle.innerText = data[i].flavor;
+    dateChange();
+    console.log(data[i]);
 }
 
 // 새로 붙이기
@@ -45,6 +101,7 @@ function post() {
     file.disabled = false;
 }
 
+// 날짜 변경
 function dateChange() {
     day = new Date(date.value);
     diff = getDateDiff("2023-04-16", day)
@@ -52,6 +109,7 @@ function dateChange() {
     date_text.innerText = content;
 }
 
+// 파일 변경
 function fileChange() {
     if (file.files && file.files[0]) {
         var reader = new FileReader();
@@ -64,19 +122,23 @@ function fileChange() {
       }
 }
 
+// 마오로드
+function maoload() {
+    if (file.files && file.files[0] && text.value != "") {
 
-function maod() {
-    const image = file.files[0];
-    const fr = new FileReader();
-    const url = "https://script.google.com/macros/s/AKfycbxGWGLUr6dWf0c0M0tMKPpUudf4Ax_ofZTkXNz8H-0bjYizf66eXAfEuNYtJJ2H2jVE/exec";
+        mao.innerText = "대기"
+        const image = file.files[0];
+        const fr = new FileReader();
+        const url = "https://script.google.com/macros/s/AKfycbxGWGLUr6dWf0c0M0tMKPpUudf4Ax_ofZTkXNz8H-0bjYizf66eXAfEuNYtJJ2H2jVE/exec";
 
-    fr.readAsArrayBuffer(image);
-    fr.onload = f => {
-        const qs = new URLSearchParams({filename: date.value, mimeType: image.type});
-        fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
-        .then(res => res.json())
-        .then(e => sendData(e.id))  // <--- You can retrieve the returned value here.
-        .catch(err => console.log(err));
+        fr.readAsArrayBuffer(image);
+        fr.onload = f => {
+            const qs = new URLSearchParams({filename: date.value, mimeType: image.type});
+            fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
+            .then(res => res.json())
+            .then(e => sendData(e.id))  // <--- You can retrieve the returned value here.
+            .catch(err => console.log(err));
+        }
     }
 }
 
@@ -85,14 +147,18 @@ function sendData(id) {
         type: "GET",
         url: "https://script.google.com/macros/s/AKfycbxrcwkYlaT5U7bj4sMi2JFHVfsZUXnO9UL_R9jDbd-iu-vCmyxdWwMRV_cSy6YvSX2n6w/exec",
         data: {
-            "FLAVOR": circle.innerText,
-            "URL": "https://drive.google.com/uc?id=" + id,
-            "TEXT": text.value,
-            "DATE": date.value
+            FLAVOR: circle.innerText,
+            URL: "https://drive.google.com/uc?id=" + id.toString(),
+            TEXT: text.value,
+            DATE: date.value
+        },
+        success: function(data){ //성공시 실행할 함수
+            window.location.reload();
+        },
+        error: function(request,status,error){ // 에러발생시 실행할 함수
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
     });
-    console.log("complete");
-    window.location.reload();
 }
 
 // 최초 실행
@@ -103,6 +169,7 @@ window.onload=function() {
     date.setAttribute("max", today);
     date.value = today;
     dateChange();
+    readData();
 }
 
 // 디데이 계산
