@@ -33,7 +33,6 @@ function post_data() {
         const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)">' + data[i].text + '</button>\n'
         container.insertAdjacentHTML('afterbegin', new_post);
     }
-    console.log(data);
 }
 
 // 검색
@@ -49,7 +48,9 @@ function search() {
             min = diff;
         }
     }
-    const target_top = document.getElementById(minIndex).getBoundingClientRect().top;
+    const target = document.getElementById(minIndex);
+    target.style.backgroundColor = "#B5C9FF";
+    const target_top = target.getBoundingClientRect().top;
     window.scroll({top : target_top, behavior: 'smooth'});
 }
 
@@ -63,11 +64,14 @@ function close_detail() {
 
 // 맛 스티커
 const circle = document.getElementById("circle");
-const flavors = ["보고싶은 맛", "행복한 맛", "미안한 맛", "여유로운 맛", "신나는 맛", "재밌는 맛", "고마운 맛", "기대되는 맛", "재미있는 맛", "사랑스런 맛", "설레는 맛", "심심한 맛", "피곤한 맛", "부러운 맛"];
+const flavors = ["보고싶은 맛",  "행복한 맛", "미안한 맛", "여유로운 맛", "신나는 맛", "고마운 맛", "기대되는 맛", "재미있는 맛", "사랑스런 맛", "설레는 맛", "심심한 맛", "부러운 맛"]; 12
+const flavor_colors = ["#FF4C1B", "#FFC91B", "#B7FF17", "#FFFA1B", "#3CFF1B", "#1BFFCE", "#1BE9FF", "#5767FF", "#9C17FF", "#FF17F4", "#FF1717", "#FFFFFF"];
 
 function flavor() {
-    i = flavors.findIndex(v => v === circle.innerText);
-    circle.innerText = flavors[(i + 1) % flavors.length];
+    var i = flavors.findIndex(v => v === circle.innerText);
+    var next = (i + 1) % flavors.length;
+    circle.innerText = flavors[next];
+    circle.style.color = flavor_colors[next];
 }
 
 // 디테일 박스 내부
@@ -80,7 +84,7 @@ const mao = document.getElementById("mao");
 
 function postit(i) {
     detial.style.display = 'block';
-    text.disabled = true;
+    text.readOnly = true;
     mao.disabled = true;
     date.disabled = true;
     file.disabled = true;
@@ -88,6 +92,8 @@ function postit(i) {
     text.innerText = data[i].text;
     date.value = data[i].date;
     circle.innerText = data[i].flavor;
+    var next = flavors.findIndex(v => v === circle.innerText) + 1;
+    circle.style.color = flavor_colors[next];
     dateChange();
     console.log(data[i]);
 }
@@ -99,6 +105,13 @@ function post() {
     mao.disabled = false;
     date.disabled = false;
     file.disabled = false;
+    
+    var now_utc = Date.now()
+    var timeOff = new Date().getTimezoneOffset()*60000;
+    date.value = new Date(now_utc-timeOff).toISOString().split("T")[0];
+    file_image.src = null;
+    text.innerText = "";
+    dateChange();
 }
 
 // 날짜 변경
@@ -118,7 +131,7 @@ function fileChange() {
         };
         reader.readAsDataURL(file.files[0]);
       } else {
-        document.getElementById("file_image").src = "";
+        document.getElementById("file_image").src = null;
       }
 }
 
