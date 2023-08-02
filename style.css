@@ -209,16 +209,14 @@ p {
 
 #mao {
     font-family: 'PP';
-    margin: 1dvh;
     color: #2D2929;
     position: absolute;
     bottom: -1.5%;
-    left: -2%;
+    left: 0%;
     font-size: 8dvh;
     border: none;
     background-color: transparent;
     transition: color 0.2s ease-in-out;
-    width: auto;
     text-align: left;
 }
 
