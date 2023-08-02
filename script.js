@@ -88,6 +88,7 @@ function postit(i) {
     mao.disabled = true;
     date.disabled = true;
     file.disabled = true;
+    circle.disabled = true;
     file_image.src = data[i].url;
     text.innerText = data[i].text;
     date.value = data[i].date;
@@ -101,15 +102,18 @@ function postit(i) {
 // 새로 붙이기
 function post() {
     detial.style.display = 'block';
-    text.disabled = false;
+    text.readOnly = false;
     mao.disabled = false;
     date.disabled = false;
     file.disabled = false;
-    
+    circle.disabled = false;
+
+    circle.style.color = "#FFC91B";
+    circle.innerText = "행복한 맛"
     var now_utc = Date.now()
     var timeOff = new Date().getTimezoneOffset()*60000;
     date.value = new Date(now_utc-timeOff).toISOString().split("T")[0];
-    file_image.src = null;
+    file_image.outerHTML = '<img id="file_image">';
     text.innerText = "";
     dateChange();
 }
