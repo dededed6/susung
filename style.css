@@ -32,69 +32,69 @@ body {
 
 #title {
     font-family: 'PP';
-    font-size: 5dvh;
-    margin: 1dvh;
+    font-size: 5svh;
+    margin: 1svh;
     color: white;
     background-color: transparent;
     border: none;
     padding: 0%;
-    text-shadow: 0.6dvh 0.6dvh 0px #77C1D4;
+    text-shadow: 0.6svh 0.6svh 0px #77C1D4;
 }
 
 #search {
     position: absolute;
-    top: 1dvh;
-    right: 1dvh;
+    top: 1svh;
+    right: 1svh;
     font-family: 'PP';
-    font-size: 4dvh;
-    margin: 1dvh;
+    font-size: 4svh;
+    margin: 1svh;
     color: white;
     background-color: transparent;
     border: none;
     padding: 0%;
-    text-shadow: 0.6dvh 0.6dvh 0px #211D1F;
+    text-shadow: 0.6svh 0.6svh 0px #211D1F;
 }
 
 #search_date {
     position: absolute;
-    top: 0.8dvh;
-    right: 4.2dvh;
+    top: 0.8svh;
+    right: 4.2svh;
     opacity: 0;
-    height: 7dvh;
-    width: 2dvh;
+    height: 7svh;
+    width: 2svh;
     transform: rotate(90deg);
 }
 
 h1 {
     font-family: 'PP';
-    font-size: 5dvh;
-    margin: 1dvh;
+    font-size: 5svh;
+    margin: 1svh;
     color: #2D2929;
 }
 
 p {
     font-family: 'P';
-    font-size: 4dvh;
+    font-size: 4svh;
     color: #2D2929;
 }
 
 #post {
     background-color: #B2CFE9;
-    text-shadow: 0.15dvh 0.15dvh 0px white;
-    box-shadow: 0.5dvh 0.5dvh 0px #211D1F;
+    text-shadow: 0.15svh 0.15svh 0px white;
+    box-shadow: 0.5svh 0.5svh 0px #211D1F;
     border: none;
-    border-radius: 10dvh;
+    border-radius: 10svh;
     font-family: 'PP';
-    font-size: 4dvh;
-    height:8dvh;
-    width: 32dvh;
-    margin-top: 10dvh;
-    margin-bottom: 3dvh;
-    color: #0088FF;
+    font-size: 4svh;
+    height:8svh;
+    width: 32svh;
+    margin-top: 10svh;
+    margin-bottom: 3svh;
+    color: black;
 }
 
 .container {
-    max-width: 100dvh;
+    max-width: 100svh;
     text-align: center;
     left: 0;
     right: 0;
@@ -103,18 +103,22 @@ p {
 }
 
 .postit {
-    margin: 0.7dvh;
+    margin: 0.7svh;
     margin-left: 0%;
-    font-size: 2dvh;
+    font-size: 2svh;
     font-family: 'P';
     color: #2D2929;
-    width: 10dvh;
-    height: 15dvh;
+    width: 10svh;
+    height: 15svh;
     background-color: #B2CFE9;
     border: none;
-    box-shadow: 0.5dvh 0.5dvh 0px black;
-    text-overflow:ellipsis;
-    overflow: hidden;
+    box-shadow: 0.5svh 0.5svh 0px black;
+    transition: background-color 0.2s ease-out;
+    position: relative;
+}
+
+.postit.search {
+    background-color: white;
 }
 
 #detail {
@@ -135,14 +139,15 @@ p {
     bottom: 69%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 19dvh;
-    width: 19dvh;
+    height: 19svh;
+    width: 19svh;
     background-color: black;
     font-family: 'PP';
-    font-size: 3.5dvh;
+    font-size: 3.5svh;
     border: none;
-    border-radius: 10dvh;
+    border-radius: 10svh;
     color:#FFC91B;
+    white-space: nowrap;
 }
 
 #susung {
@@ -152,6 +157,7 @@ p {
     transform: translate(-50%,0);
     font-size: 3.2vh;
     width: 95%;
+    font-size: 150%;
     margin: 0%;
     text-shadow: 0.15vh 0.15vh 0px white;
     overflow: hidden;
@@ -162,19 +168,19 @@ p {
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 80dvh;
-    width: 40dvh;
+    height: 80svh;
+    width: 40svh;
     background-color: #B2CFE9;
-    box-shadow: 0.5dvh 0.5dvh 5dvh black;
+    box-shadow: 0.5svh 0.5svh 5svh black;
 }
 
 #file_image {
     position: absolute;
     left: 50%;
-    top: 15dvh;
+    top: 15svh;
     transform: translate(-50%,0%);
-    height: 32dvh;
-    width: 36dvh;
+    height: 32svh;
+    width: 36svh;
     border: 5px solid #211D1F;
     padding: 0%;
     margin: 0%;
@@ -186,14 +192,14 @@ p {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    top: 51dvh;
+    top: 51svh;
     color: #2D2929;
-    font-size: 2.3dvh;
+    font-size: 2.3svh;
     background-color: transparent;
     border: none;
     font-family: 'P';
-    height: 10dvh;
-    width:32dvh;
+    height: 10svh;
+    width:32svh;
     resize: none; /* 사용자 임의 변경 불가 */
     resize: both; /* 사용자 변경이 모두 가능 */
     resize: horizontal; /* 좌우만 가능 */
@@ -208,7 +214,7 @@ p {
     position: absolute;
     bottom: 0%;
     right: 1%;
-    font-size: 3dvh;
+    font-size: 3svh;
     text-align: right;
 }
 
@@ -224,8 +230,8 @@ p {
     color: #2D2929;
     position: absolute;
     bottom: -1.5%;
-    left: 1%;
-    font-size: 8dvh;
+    left: 1svh;
+    font-size: 8svh;
     border: none;
     background-color: transparent;
     transition: color 0.2s ease-in-out;

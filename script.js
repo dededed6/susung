@@ -11,9 +11,11 @@ function readData() {
             jsonData = JSON.parse(jsonData);
 
             for(var i=0; i < jsonData.rows.length; i++) {
+                urls = jsonData.rows[i].c[1].v.split(',');
+                urls.pop();
                 dict = {
                     flavor: jsonData.rows[i].c[0].v,
-                    url: jsonData.rows[i].c[1].v,
+                    url: urls,
                     text: jsonData.rows[i].c[2].v,
                     date: jsonData.rows[i].c[3].f
                 };
@@ -30,7 +32,8 @@ const container = document.getElementsByClassName('container')[0];
 function post_data() {
     data = data.sort((a,b) => (new Date(a.date).getTime() - new Date(b.date).getTime())); // 데이터 시간순 정렬
     for(var i=0; i < data.length; i++) {
-        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)">' + data[i].text + '</button>\n'
+        const color = flavor_colors[flavors.findIndex(v => v === data[i].flavor)];
+        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)" style="padding-top: ' + (Math.random() * 10).toString() + '%;">\n    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh;">' + data[i].text + '</p>\n    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid ' + color + '; border-radius: 50%;"></div>\n</button>\n'
         container.insertAdjacentHTML('afterbegin', new_post);
     }
 }
@@ -49,7 +52,8 @@ function search() {
         }
     }
     const target = document.getElementById(minIndex);
-    target.style.backgroundColor = "#B5C9FF";
+    target.classList.toggle('search', true);
+    setTimeout(() => target.classList.toggle('search', false), 1000);
     const target_top = target.getBoundingClientRect().top;
     window.scroll({top : target_top, behavior: 'smooth'});
 }
@@ -65,7 +69,7 @@ function close_detail() {
 // 맛 스티커
 const circle = document.getElementById("circle");
 const flavors = ["보고싶은 맛",  "행복한 맛", "미안한 맛", "여유로운 맛", "신나는 맛", "고마운 맛", "기대되는 맛", "재미있는 맛", "사랑스런 맛", "설레는 맛", "심심한 맛", "부러운 맛"]; 12
-const flavor_colors = ["#FF4C1B", "#FFC91B", "#B7FF17", "#FFFA1B", "#3CFF1B", "#1BFFCE", "#1BE9FF", "#5767FF", "#9C17FF", "#FF17F4", "#FF1717", "#FFFFFF"];
+const flavor_colors = ["#FF4C1B", "#FFC91B", "#B7FF17", "#FFFA1B", "#3CFF1B", "#1BFFCE", "#1BE9FF", "#5767FF", "#9C17FF", "#FF17F4", "#FC664C", "#FFFFFF"];
 
 function flavor() {
     var i = flavors.findIndex(v => v === circle.innerText);
@@ -93,10 +97,9 @@ function postit(i) {
     text.innerText = data[i].text;
     date.value = data[i].date;
     circle.innerText = data[i].flavor;
-    var next = flavors.findIndex(v => v === circle.innerText) + 1;
+    var next = flavors.findIndex(v => v === circle.innerText);
     circle.style.color = flavor_colors[next];
     dateChange();
-    console.log(data[i]);
 }
 
 // 새로 붙이기
@@ -129,14 +132,38 @@ function dateChange() {
 // 파일 변경
 function fileChange() {
     if (file.files && file.files[0]) {
+        slideImageMao();
+    } else {
+        document.getElementById("file_image").src = null;
+    }
+}
+
+// 사진 변경
+const timer = ms => new Promise(res => setTimeout(res, ms))
+
+async function slideImageMao() {
+    for (var i=0; i<=file.files.length; i++) {
+        if (i == file.files.length && detial.style.display == 'block') {
+            i = 0;
+        }
         var reader = new FileReader();
         reader.onload = function(e) {
           document.getElementById("file_image").src = e.target.result;
         };
-        reader.readAsDataURL(file.files[0]);
-      } else {
-        document.getElementById("file_image").src = null;
-      }
+        reader.readAsDataURL(file.files[i]);
+        await timer(2000);
+    }
+
+}
+
+async function slideImage(images) {
+    for (var i=0; i<=images.length; i++) {
+        if (i == images.length && detial.style.display == 'block') {
+            i = 0;
+        }
+        file_image.src = images[i];
+        await timer(2000);
+    }
 }
 
 // 마오로드
@@ -144,17 +171,24 @@ function maoload() {
     if (file.files && file.files[0] && text.value != "") {
 
         mao.innerText = "대기"
-        const image = file.files[0];
-        const fr = new FileReader();
-        const url = "https://script.google.com/macros/s/AKfycbxGWGLUr6dWf0c0M0tMKPpUudf4Ax_ofZTkXNz8H-0bjYizf66eXAfEuNYtJJ2H2jVE/exec";
+        urls = "";
+        for (var i=0; i<=file.files.length; i++) {
+            if (i==file.files.length) {
+                sendData(urls);
+                break;
+            }
+            const image = file.files[i];
+            const fr = new FileReader();
+            const url = "https://script.google.com/macros/s/AKfycbxGWGLUr6dWf0c0M0tMKPpUudf4Ax_ofZTkXNz8H-0bjYizf66eXAfEuNYtJJ2H2jVE/exec";
 
-        fr.readAsArrayBuffer(image);
-        fr.onload = f => {
-            const qs = new URLSearchParams({filename: date.value, mimeType: image.type});
-            fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
-            .then(res => res.json())
-            .then(e => sendData(e.id))  // <--- You can retrieve the returned value here.
-            .catch(err => console.log(err));
+            fr.readAsArrayBuffer(image);
+            fr.onload = f => {
+                const qs = new URLSearchParams({filename: date.value, mimeType: image.type});
+                fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
+                .then(res => res.json())
+                .then(e => urls+="https://drive.google.com/uc?id=" + e.id + ",")  // <--- You can retrieve the returned value here.
+                .catch(err => console.log(err));
+            }
         }
     }
 }
@@ -165,7 +199,7 @@ function sendData(id) {
         url: "https://script.google.com/macros/s/AKfycbxrcwkYlaT5U7bj4sMi2JFHVfsZUXnO9UL_R9jDbd-iu-vCmyxdWwMRV_cSy6YvSX2n6w/exec",
         data: {
             FLAVOR: circle.innerText,
-            URL: "https://drive.google.com/uc?id=" + id.toString(),
+            URL: id.toString(),
             TEXT: text.value,
             DATE: date.value
         },

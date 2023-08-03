@@ -20,7 +20,10 @@
         <!--포스트잇들-->
         <div class="container">
             <!--
-                <button class="postit" onclick="postit(this)">텍스트</button>
+                <button class="postit" onclick="postit(this)">
+                    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh;">같이 이오스 성수 갔던 날. 알바생도 성수 스타일이라 웃겼었음.</p>
+                    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid rgb(163, 151, 198); border-radius: 50%;"></div>
+                </button>
             -->
         </div>
 
@@ -33,7 +36,7 @@
                 <label className="input-file-button" for="file">
                     <img id="file_image">
                 </label>
-                <input type="file" id="file" style="display:none" onchange="fileChange()"><br>
+                <input type="file" id="file" style="display:none" onchange="fileChange()" multiple><br>
                 <!--텍스트 입력-->
                 <p style="position: absolute; font-size: 12vh; left: 1%; top: 36vh; font-family: 'PR';">[</p>
                 <textarea id="text"></textarea>
