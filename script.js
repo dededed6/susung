@@ -93,7 +93,7 @@ function postit(i) {
     date.disabled = true;
     file.disabled = true;
     circle.disabled = true;
-    file_image.src = data[i].url;
+    slideImage(data[i].url);
     text.innerText = data[i].text;
     date.value = data[i].date;
     circle.innerText = data[i].flavor;
@@ -143,7 +143,10 @@ const timer = ms => new Promise(res => setTimeout(res, ms))
 
 async function slideImageMao() {
     for (var i=0; i<=file.files.length; i++) {
-        if (i == file.files.length && detial.style.display == 'block') {
+        if(detial.style.display == 'none') {
+            break;
+        }
+        if (i == file.files.length) {
             i = 0;
         }
         var reader = new FileReader();
@@ -158,58 +161,63 @@ async function slideImageMao() {
 
 async function slideImage(images) {
     for (var i=0; i<=images.length; i++) {
-        if (i == images.length && detial.style.display == 'block') {
+        if(detial.style.display == 'none') {
+            break;
+        }
+        if (i == images.length) {
             i = 0;
         }
         file_image.src = images[i];
-        await timer(2000);
+        await timer(1000);
     }
 }
 
 // 마오로드
-function maoload() {
+async function maoload() {
     if (file.files && file.files[0] && text.value != "") {
 
-        mao.innerText = "대기"
+        mao.innerText = "왱이"
+        mao.disabled = true;
         urls = "";
-        for (var i=0; i<=file.files.length; i++) {
-            if (i==file.files.length) {
-                sendData(urls);
-                break;
-            }
+        for (var i=0; i<file.files.length; i++) {
             const image = file.files[i];
             const fr = new FileReader();
             const url = "https://script.google.com/macros/s/AKfycbxGWGLUr6dWf0c0M0tMKPpUudf4Ax_ofZTkXNz8H-0bjYizf66eXAfEuNYtJJ2H2jVE/exec";
+            var complete = 0;
 
             fr.readAsArrayBuffer(image);
             fr.onload = f => {
                 const qs = new URLSearchParams({filename: date.value, mimeType: image.type});
                 fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
                 .then(res => res.json())
-                .then(e => urls+="https://drive.google.com/uc?id=" + e.id + ",")  // <--- You can retrieve the returned value here.
+                .then(e => sendData((urls = urls + 'https://drive.google.com/uc?id=' + e.id + ','), (complete = complete + 1)))  // <--- You can retrieve the returned value here.
                 .catch(err => console.log(err));
             }
+            await timer(1);
         }
+        
     }
 }
 
-function sendData(id) {
-    $.ajax({
-        type: "GET",
-        url: "https://script.google.com/macros/s/AKfycbxrcwkYlaT5U7bj4sMi2JFHVfsZUXnO9UL_R9jDbd-iu-vCmyxdWwMRV_cSy6YvSX2n6w/exec",
-        data: {
-            FLAVOR: circle.innerText,
-            URL: id.toString(),
-            TEXT: text.value,
-            DATE: date.value
-        },
-        success: function(data){ //성공시 실행할 함수
-            window.location.reload();
-        },
-        error: function(request,status,error){ // 에러발생시 실행할 함수
-            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        }
-    });
+function sendData(id, complete) {
+    if (complete == file.files.length) {
+        $.ajax({
+            type: "GET",
+            url: "https://script.google.com/macros/s/AKfycbxrcwkYlaT5U7bj4sMi2JFHVfsZUXnO9UL_R9jDbd-iu-vCmyxdWwMRV_cSy6YvSX2n6w/exec",
+            data: {
+                FLAVOR: circle.innerText,
+                URL: id.toString(),
+                TEXT: text.value,
+                DATE: date.value
+            },
+            success: function(data){ //성공시 실행할 함수
+                window.location.reload();
+            },
+            error: function(request,status,error){ // 에러발생시 실행할 함수
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        });
+    }
 }
 
 // 최초 실행
