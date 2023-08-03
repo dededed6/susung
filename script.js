@@ -93,6 +93,7 @@ function postit(i) {
     date.disabled = true;
     file.disabled = true;
     circle.disabled = true;
+    clearTimeout(timer);
     slideImage(data[i].url);
     text.innerText = data[i].text;
     date.value = data[i].date;
@@ -132,6 +133,7 @@ function dateChange() {
 // 파일 변경
 function fileChange() {
     if (file.files && file.files[0]) {
+        clearTimeout(timer);
         slideImageMao();
     } else {
         document.getElementById("file_image").src = null;
@@ -154,9 +156,8 @@ async function slideImageMao() {
           document.getElementById("file_image").src = e.target.result;
         };
         reader.readAsDataURL(file.files[i]);
-        await timer(2000);
+        await timer(1000);
     }
-
 }
 
 async function slideImage(images) {
