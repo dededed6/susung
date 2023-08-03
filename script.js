@@ -88,8 +88,8 @@ const mao = document.getElementById("mao");
 
 function postit(i) {
     detial.style.display = 'block';
-    text.readOnly = true;
     mao.disabled = true;
+    text.readOnly = true;
     date.disabled = true;
     file.disabled = true;
     circle.disabled = true;
@@ -169,6 +169,14 @@ async function slideImage(images) {
         }
         file_image.src = images[i];
         await timer(1000);
+    }
+}
+
+function download(url) {
+    var urls = url.split(',');
+    urls.pop();
+    for (var i=0;i<urls.length;i++) {
+        window.open('https://drive.google.com/uc?export=download&id=' + urls[i].split('=')[0], '_blank');
     }
 }
 
