@@ -240,6 +240,8 @@ p {
     font-family: 'P';
     height: 10dvh;
     width:32dvh;
+    white-space: pre-wrap;
+    word-break: keep-all;
     resize: none; /* 사용자 임의 변경 불가 */
     resize: both; /* 사용자 변경이 모두 가능 */
     resize: horizontal; /* 좌우만 가능 */

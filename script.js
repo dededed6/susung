@@ -34,7 +34,7 @@ function post_data() {
     data = data.sort((a,b) => (new Date(a.date).getTime() - new Date(b.date).getTime())); // 데이터 시간순 정렬
     for(var i=0; i < data.length; i++) {
         const color = flavor_colors[flavors.findIndex(v => v === data[i].flavor)];
-        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)" style="padding-top: ' + (Math.random() * 10).toString() + '%;">\n    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh;">' + data[i].text + '</p>\n    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid ' + color + '; border-radius: 50%;"></div>\n</button>\n'
+        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)" style="padding-top: ' + (Math.random() * 10).toString() + '%;">\n    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh; white-space: pre-wrap;">' + data[i].text + '</p>\n    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid ' + color + '; border-radius: 50%;"></div>\n</button>\n';
         container.insertAdjacentHTML('afterbegin', new_post);
     }
 }
@@ -75,7 +75,7 @@ function switchToText() {
     container.innerHTML = "";
     for(var i=0; i < data.length; i++) {
         const color = flavor_colors[flavors.findIndex(v => v === data[i].flavor)];
-        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)" style="padding-top: ' + (Math.random() * 10).toString() + '%;">\n    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh;">' + data[i].text + '</p>\n    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid ' + color + '; border-radius: 50%;"></div>\n</button>\n'
+        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)" style="padding-top: ' + (Math.random() * 10).toString() + '%;">\n    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh;">' + data[i].text + '</p>\n    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid ' + color + '; border-radius: 50%;"></div>\n</button>\n';
         container.insertAdjacentHTML('afterbegin', new_post);
     }
     toggleImage.setAttribute("onClick", "switchToImage()");
@@ -106,7 +106,6 @@ const mao = document.getElementById("mao");
 
 function postit(i) {
     i = parseInt(i);
-    console.log(i);
 
     for (var ei=0; ei<data[i].url.length; ei++) {
         image_src.push(data[i].url[ei]);
@@ -118,7 +117,7 @@ function postit(i) {
     file.disabled = true;
     circle.disabled = true;
 
-    text.innerText = data[i].text;
+    text.value = data[i].text;
     date.value = data[i].date;
     circle.innerText = data[i].flavor;
     var next = flavors.findIndex(v => v === circle.innerText);
