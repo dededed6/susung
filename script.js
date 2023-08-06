@@ -142,7 +142,7 @@ function post() {
     var timeOff = new Date().getTimezoneOffset()*60000;
     date.value = new Date(now_utc-timeOff).toISOString().split("T")[0];
     file_image.src = '';
-    text.innerText = "";
+    text.value = "";
     dateChange();
     mao.setAttribute("onClick", "maoload()");
 }
