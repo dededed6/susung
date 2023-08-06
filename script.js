@@ -11,8 +11,9 @@ function readData() {
             jsonData = JSON.parse(jsonData);
 
             for(var i=0; i < jsonData.rows.length; i++) {
-                urls = jsonData.rows[i].c[1].v.split(',');
+                let urls = jsonData.rows[i].c[1].v.split(',');
                 urls.pop();
+
                 dict = {
                     flavor: jsonData.rows[i].c[0].v,
                     url: urls,
@@ -62,10 +63,6 @@ function search() {
 // 디테일
 const detial = document.getElementById("detail");
 
-function close_detail() {
-    detial.style.display = "none";
-}
-
 // 맛 스티커
 const circle = document.getElementById("circle");
 const flavors = ["보고싶은 맛",  "행복한 맛", "미안한 맛", "여유로운 맛", "신나는 맛", "고마운 맛", "기대되는 맛", "재미있는 맛", "사랑스런 맛", "설레는 맛", "심심한 맛", "부러운 맛"]; 12
@@ -87,14 +84,17 @@ const date = document.getElementById("date");
 const mao = document.getElementById("mao");
 
 function postit(i) {
+    for (var ei=0; ei<data[i].url.length; ei++) {
+        image_src.push(data[i].url[ei]);
+    }
+    
     detial.style.display = 'block';
     mao.disabled = true;
     text.readOnly = true;
     date.disabled = true;
     file.disabled = true;
     circle.disabled = true;
-    clearTimeout(timer);
-    slideImage(data[i].url);
+
     text.innerText = data[i].text;
     date.value = data[i].date;
     circle.innerText = data[i].flavor;
@@ -117,7 +117,7 @@ function post() {
     var now_utc = Date.now()
     var timeOff = new Date().getTimezoneOffset()*60000;
     date.value = new Date(now_utc-timeOff).toISOString().split("T")[0];
-    file_image.outerHTML = '<img id="file_image">';
+    file_image.src = '';
     text.innerText = "";
     dateChange();
 }
@@ -133,44 +133,33 @@ function dateChange() {
 // 파일 변경
 function fileChange() {
     if (file.files && file.files[0]) {
-        clearTimeout(timer);
-        slideImageMao();
+        for (var i=0; i<file.files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                image_src.push(e.target.result);
+            };
+            reader.readAsDataURL(file.files[i]);
+        }
     } else {
-        document.getElementById("file_image").src = null;
+        file_image.outerHTML = '<img id="file_image">';
     }
 }
 
 // 사진 변경
-const timer = ms => new Promise(res => setTimeout(res, ms))
+let image_src = [];
 
-async function slideImageMao() {
-    for (var i=0; i<=file.files.length; i++) {
-        if(detial.style.display == 'none') {
-            break;
-        }
-        if (i == file.files.length) {
-            i = 0;
-        }
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById("file_image").src = e.target.result;
-        };
-        reader.readAsDataURL(file.files[i]);
-        await timer(1000);
+function imageSlide() {
+    if (image_src.length != 0) {
+        const target = image_src.pop();
+        file_image.src = target;
+        image_src.unshift(target);
     }
 }
 
-async function slideImage(images) {
-    for (var i=0; i<=images.length; i++) {
-        if(detial.style.display == 'none') {
-            break;
-        }
-        if (i == images.length) {
-            i = 0;
-        }
-        file_image.src = images[i];
-        await timer(1000);
-    }
+function close_detail() {
+    detial.style.display = "none";
+    image_src = [];
+    file_image.src = '';
 }
 
 function download(url) {
@@ -202,7 +191,6 @@ async function maoload() {
                 .then(e => sendData((urls = urls + 'https://drive.google.com/uc?id=' + e.id + ','), (complete = complete + 1)))  // <--- You can retrieve the returned value here.
                 .catch(err => console.log(err));
             }
-            await timer(1);
         }
         
     }
@@ -236,8 +224,10 @@ window.onload=function() {
     var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
     date.setAttribute("max", today);
     date.value = today;
+    search_date.setAttribute("max", today);
     dateChange();
     readData();
+    setInterval(imageSlide, 1500);
 }
 
 // 디데이 계산

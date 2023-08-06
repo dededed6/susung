@@ -32,69 +32,69 @@ body {
 
 #title {
     font-family: 'PP';
-    font-size: 5svh;
-    margin: 1svh;
+    font-size: 5dvh;
+    margin: 1dvh;
     color: white;
     background-color: transparent;
     border: none;
     padding: 0%;
-    text-shadow: 0.6svh 0.6svh 0px #77C1D4;
+    text-shadow: 0.6dvh 0.6dvh 0px #77C1D4;
 }
 
 #search {
     position: absolute;
-    top: 1svh;
-    right: 1svh;
+    top: 1dvh;
+    right: 1dvh;
     font-family: 'PP';
-    font-size: 4svh;
-    margin: 1svh;
+    font-size: 4dvh;
+    margin: 1dvh;
     color: white;
     background-color: transparent;
     border: none;
     padding: 0%;
-    text-shadow: 0.6svh 0.6svh 0px #211D1F;
+    text-shadow: 0.6dvh 0.6dvh 0px #211D1F;
 }
 
 #search_date {
     position: absolute;
-    top: 0.8svh;
-    right: 4.2svh;
+    top: 0.8dvh;
+    right: 4.2dvh;
     opacity: 0;
-    height: 7svh;
-    width: 2svh;
+    height: 7dvh;
+    width: 2dvh;
     transform: rotate(90deg);
 }
 
 h1 {
     font-family: 'PP';
-    font-size: 5svh;
-    margin: 1svh;
+    font-size: 5dvh;
+    margin: 1dvh;
     color: #2D2929;
 }
 
 p {
     font-family: 'P';
-    font-size: 4svh;
+    font-size: 4dvh;
     color: #2D2929;
 }
 
 #post {
     background-color: #B2CFE9;
-    text-shadow: 0.15svh 0.15svh 0px white;
-    box-shadow: 0.5svh 0.5svh 0px #211D1F;
+    text-shadow: 0.15dvh 0.15dvh 0px white;
+    box-shadow: 0.5dvh 0.5dvh 0px #211D1F;
     border: none;
-    border-radius: 10svh;
+    border-radius: 10dvh;
     font-family: 'PP';
-    font-size: 4svh;
-    height:8svh;
-    width: 32svh;
-    margin-top: 10svh;
-    margin-bottom: 3svh;
+    font-size: 4dvh;
+    height:8dvh;
+    width: 32dvh;
+    margin-top: 10dvh;
+    margin-bottom: 3dvh;
     color: black;
 }
 
 .container {
-    max-width: 100svh;
+    max-width: 100dvh;
     text-align: center;
     left: 0;
     right: 0;
@@ -103,16 +103,16 @@ p {
 }
 
 .postit {
-    margin: 0.7svh;
+    margin: 0.7dvh;
     margin-left: 0%;
-    font-size: 2svh;
+    font-size: 2dvh;
     font-family: 'P';
     color: #2D2929;
-    width: 10svh;
-    height: 15svh;
+    width: 10dvh;
+    height: 15dvh;
     background-color: #B2CFE9;
     border: none;
-    box-shadow: 0.5svh 0.5svh 0px black;
+    box-shadow: 0.5dvh 0.5dvh 0px black;
     transition: background-color 0.2s ease-out;
     position: relative;
 }
@@ -122,7 +122,7 @@ p {
 }
 
 #detail {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
@@ -139,13 +139,13 @@ p {
     bottom: 69%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 19svh;
-    width: 19svh;
+    height: 19dvh;
+    width: 19dvh;
     background-color: black;
     font-family: 'PP';
-    font-size: 3.5svh;
+    font-size: 3.5dvh;
     border: none;
-    border-radius: 10svh;
+    border-radius: 10dvh;
     color:#FFC91B;
     white-space: nowrap;
 }
@@ -155,9 +155,8 @@ p {
     top: 10.5vh;
     left: 50%;
     transform: translate(-50%,0);
-    font-size: 3.2vh;
+    font-size: 3.2dvh;
     width: 95%;
-    font-size: 150%;
     margin: 0%;
     text-shadow: 0.15vh 0.15vh 0px white;
     overflow: hidden;
@@ -168,19 +167,19 @@ p {
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 80svh;
-    width: 40svh;
+    height: 80dvh;
+    width: 40dvh;
     background-color: #B2CFE9;
-    box-shadow: 0.5svh 0.5svh 5svh black;
+    box-shadow: 0.5dvh 0.5dvh 5dvh black;
 }
 
 #file_image {
     position: absolute;
     left: 50%;
-    top: 15svh;
+    top: 15dvh;
     transform: translate(-50%,0%);
-    height: 32svh;
-    width: 36svh;
+    height: 32dvh;
+    width: 36dvh;
     border: 5px solid #211D1F;
     padding: 0%;
     margin: 0%;
@@ -192,14 +191,14 @@ p {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    top: 51svh;
+    top: 51dvh;
     color: #2D2929;
-    font-size: 2.3svh;
+    font-size: 2.3dvh;
     background-color: transparent;
     border: none;
     font-family: 'P';
-    height: 10svh;
-    width:32svh;
+    height: 10dvh;
+    width:32dvh;
     resize: none; /* 사용자 임의 변경 불가 */
     resize: both; /* 사용자 변경이 모두 가능 */
     resize: horizontal; /* 좌우만 가능 */
@@ -214,7 +213,7 @@ p {
     position: absolute;
     bottom: 0%;
     right: 1%;
-    font-size: 3svh;
+    font-size: 3dvh;
     text-align: right;
 }
 
@@ -230,8 +229,8 @@ p {
     color: #2D2929;
     position: absolute;
     bottom: -1.5%;
-    left: 1svh;
-    font-size: 8svh;
+    left: 1dvh;
+    font-size: 8dvh;
     border: none;
     background-color: transparent;
     transition: color 0.2s ease-in-out;
