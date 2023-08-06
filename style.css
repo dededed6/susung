@@ -245,12 +245,13 @@ p {
     resize: horizontal; /* 좌우만 가능 */
     resize: vertical; /* 상하만 가능 */
     
-    transition: background-color 0.2s ease-out, height 0.2s ease-out, top 0.2s ease-out, border 0.2s ease-out;
+    transition: background-color 0.2s ease-out, height 0.2s ease-out, width 0.2s ease-out, top 0.2s ease-out, border 0.2s ease-out;
 }
 
 #text.expand {
     background-color: white;
     height: 46dvh;
+    width: 36dvh;
     top: 15dvh;
     border: 0.4dvh solid #211D1F;
 }
