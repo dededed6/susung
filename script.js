@@ -59,6 +59,28 @@ function search() {
     window.scroll({top : target_top, behavior: 'smooth'});
 }
 
+// 사진/글자 토글
+const toggleImage = document.getElementById("toggleImage");
+function switchToImage() {
+    container.innerHTML = "";
+    for (var i=0; i<data.length; i++) {
+        for (var ii=0; ii<data[i].url.length; ii++) {
+            const new_image = '<img class="image" id="' + i.toString() + '" src="' + data[i].url[ii] + '" onclick="postit(this.id)">\n';
+            container.insertAdjacentHTML('afterbegin', new_image);
+        }
+    }
+    toggleImage.setAttribute("onClick", "switchToText()");
+}
+
+function switchToText() {
+    container.innerHTML = "";
+    for(var i=0; i < data.length; i++) {
+        const color = flavor_colors[flavors.findIndex(v => v === data[i].flavor)];
+        const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)" style="padding-top: ' + (Math.random() * 10).toString() + '%;">\n    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh;">' + data[i].text + '</p>\n    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid ' + color + '; border-radius: 50%;"></div>\n</button>\n'
+        container.insertAdjacentHTML('afterbegin', new_post);
+    }
+    toggleImage.setAttribute("onClick", "switchToImage()");
+}
 
 // 디테일
 const detial = document.getElementById("detail");
@@ -89,7 +111,6 @@ function postit(i) {
     }
     
     detial.style.display = 'block';
-    mao.disabled = true;
     text.readOnly = true;
     date.disabled = true;
     file.disabled = true;
@@ -101,13 +122,13 @@ function postit(i) {
     var next = flavors.findIndex(v => v === circle.innerText);
     circle.style.color = flavor_colors[next];
     dateChange();
+    mao.setAttribute("onClick", "download(" + i + ")");
 }
 
 // 새로 붙이기
 function post() {
     detial.style.display = 'block';
     text.readOnly = false;
-    mao.disabled = false;
     date.disabled = false;
     file.disabled = false;
     circle.disabled = false;
@@ -120,6 +141,7 @@ function post() {
     file_image.src = '';
     text.innerText = "";
     dateChange();
+    mao.setAttribute("onClick", "maoload()");
 }
 
 // 날짜 변경
@@ -141,7 +163,20 @@ function fileChange() {
             reader.readAsDataURL(file.files[i]);
         }
     } else {
-        file_image.outerHTML = '<img id="file_image">';
+        file_image.src = '';
+    }
+}
+
+// 텍스트 박스 크기 변경
+function toggleTextSize() {
+        if (text.style.height == "10dvh") {
+        text.style.height = "46dvh";
+        text.style.top = "15dvh";
+        file_image.style.opacity = 0;
+    } else {
+        text.style.height = "10dvh";
+        text.style.top = "51dvh";
+        file_image.style.opacity = 1;
     }
 }
 
@@ -156,17 +191,19 @@ function imageSlide() {
     }
 }
 
+// 디테일 닫기
 function close_detail() {
     detial.style.display = "none";
     image_src = [];
     file_image.src = '';
 }
 
-function download(url) {
-    var urls = url.split(',');
-    urls.pop();
-    for (var i=0;i<urls.length;i++) {
-        window.open('https://drive.google.com/uc?export=download&id=' + urls[i].split('=')[0], '_blank');
+// 다운로드
+function download(i) {
+    for (var ii=0; ii<data[i].url.length; ii++) {
+        var t_url = 'https://drive.google.com/uc?export=download&id=' + data[i].url[ii].split('=')[1] + '&confirm=t';
+        console.log(t_url);
+        window.open(t_url, '_blank');
     }
 }
 

@@ -13,6 +13,7 @@
             <button id="title" onClick="window.location.reload()">수성</button>
             <p id="search">검색</p>
             <input type="date" id="search_date" onchange="search()">
+            <button id="toggleImage" onclick="switchToImage()">모드</button>
         </div>
 
         <!--추가하기-->
@@ -40,7 +41,7 @@
                 <input type="file" id="file" style="display:none" onchange="fileChange()" multiple><br>
                 <!--텍스트 입력-->
                 <p style="position: absolute; font-size: 12dvh; left:  1%; top: 48dvh; font-family: 'PR'; margin: 0;">[</p>
-                <textarea id="text"></textarea>
+                <textarea id="text" onclick="toggleTextSize()"></textarea>
                 <p style="position: absolute; font-size: 12dvh; right: 1%; top: 48dvh; font-family: 'PR'; margin: 0;">]</p>
                 <!--날짜 입력-->
                 <h1 id="date_text">2023.4.17<br>D+1</h1>

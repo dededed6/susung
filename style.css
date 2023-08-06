@@ -18,6 +18,10 @@ body {
     margin: 0%;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .topbar {
     position:fixed;
     text-align: center;
@@ -28,6 +32,7 @@ body {
     padding: 0%;
     height: auto;
     background-image: linear-gradient(to bottom, #302F2F, transparent 100%);
+    z-index: 1;
 }
 
 #title {
@@ -63,6 +68,20 @@ body {
     height: 7dvh;
     width: 2dvh;
     transform: rotate(90deg);
+}
+
+#toggleImage {
+    position: absolute;
+    top: 1dvh;
+    left: 1dvh;
+    font-family: 'PP';
+    font-size: 4dvh;
+    margin: 1dvh;
+    color: white;
+    background-color: transparent;
+    border: none;
+    padding: 0%;
+    text-shadow: 0.6dvh 0.6dvh 0px #211D1F;
 }
 
 h1 {
@@ -115,10 +134,27 @@ p {
     box-shadow: 0.5dvh 0.5dvh 0px black;
     transition: background-color 0.2s ease-out;
     position: relative;
+    z-index: 0;
 }
 
 .postit.search {
     background-color: white;
+}
+
+.image {
+    margin: 0;
+    font-family: 'P';
+    width: auto;
+    height: 20dvh;
+    filter: brightness(1);
+    border: none;
+    transition: filter 0.2s ease-out;
+    position: relative;
+    z-index: 0;
+}
+
+.image.search {
+    filter: brightness(1.5);
 }
 
 #detail {
@@ -132,6 +168,7 @@ p {
     background-color: rgba(0, 0, 0, 0.7);
     border: none;
     display: none;
+    z-index: 2;
 }
 
 #circle {
@@ -228,7 +265,7 @@ p {
     font-family: 'PP';
     color: #2D2929;
     position: absolute;
-    bottom: -1.5%;
+    bottom: -1%;
     left: 1dvh;
     font-size: 8dvh;
     border: none;
