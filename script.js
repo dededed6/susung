@@ -228,7 +228,7 @@ async function maoload() {
 
             fr.readAsArrayBuffer(image);
             fr.onload = f => {
-                const qs = new URLSearchParams({filename: date.value, mimeType: image.type});
+                const qs = new URLSearchParams({filename: date.value + "." + (Math.random()*1000).toString(), mimeType: image.type});
                 fetch(`${url}?${qs}`, {method: "POST", body: JSON.stringify([...new Int8Array(f.target.result)])})
                 .then(res => res.json())
                 .then(e => sendData((urls = urls + 'https://drive.google.com/uc?id=' + e.id + ','), (complete = complete + 1)))  // <--- You can retrieve the returned value here.
