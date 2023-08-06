@@ -169,14 +169,17 @@ function fileChange() {
 
 // 텍스트 박스 크기 변경
 function toggleTextSize() {
-        if (text.style.height == "10dvh") {
-        text.style.height = "46dvh";
-        text.style.top = "15dvh";
+    currentClass = text.className;
+    if (currentClass != "expand") {
+        text.classList.toggle('expand', true);
         file_image.style.opacity = 0;
+        document.getElementsByClassName("text_box")[0].style.opacity = 0;
+        document.getElementsByClassName("text_box")[1].style.opacity = 0;
     } else {
-        text.style.height = "10dvh";
-        text.style.top = "51dvh";
+        text.classList.toggle('expand', false);
         file_image.style.opacity = 1;
+        document.getElementsByClassName("text_box")[0].style.opacity = 1;
+        document.getElementsByClassName("text_box")[1].style.opacity = 1;
     }
 }
 

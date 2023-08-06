@@ -221,7 +221,7 @@ p {
     transform: translate(-50%,0%);
     height: 32dvh;
     width: 36dvh;
-    border: 5px solid #211D1F;
+    border: 0.6dvh solid #211D1F;
     padding: 0%;
     margin: 0%;
     object-fit: cover;
@@ -244,6 +244,24 @@ p {
     resize: both; /* 사용자 변경이 모두 가능 */
     resize: horizontal; /* 좌우만 가능 */
     resize: vertical; /* 상하만 가능 */
+    
+    transition: background-color 0.2s ease-out, height 0.2s ease-out, top 0.2s ease-out, border 0.2s ease-out;
+}
+
+#text.expand {
+    background-color: white;
+    height: 46dvh;
+    top: 15dvh;
+    border: 0.4dvh solid #211D1F;
+}
+
+.text_box {
+    position: absolute;
+    font-size: 12dvh;
+    top: 48dvh;
+    font-family: 'PR';
+    margin: 0;
+    padding: 0;
 }
 
 #text::-webkit-scrollbar {
