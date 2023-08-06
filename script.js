@@ -68,6 +68,7 @@ function switchToImage() {
             container.insertAdjacentHTML('afterbegin', new_image);
         }
     }
+    toggleImage.innerText = "글자";
     toggleImage.setAttribute("onClick", "switchToText()");
 }
 
@@ -78,6 +79,7 @@ function switchToText() {
         const new_post = '<button class="postit" id="' + i.toString() + '" onclick="postit(this.id)" style="padding-top: ' + (Math.random() * 10).toString() + '%;">\n    <p style="margin: 0; position: absolute; top: 10%; left: 5%; height: 85%; width: 90%; overflow: hidden; font-size: 2svh;">' + data[i].text + '</p>\n    <div style="position:absolute; top: -5%; left:50%; transform: translate(-50%,0); margin: 0; width: 0.1vh; height: 0.1vh; border: 1svh solid ' + color + '; border-radius: 50%;"></div>\n</button>\n';
         container.insertAdjacentHTML('afterbegin', new_post);
     }
+    toggleImage.innerText = "사진";
     toggleImage.setAttribute("onClick", "switchToImage()");
 }
 
