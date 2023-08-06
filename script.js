@@ -99,7 +99,7 @@ function flavor() {
 }
 
 // 디테일 박스 내부
-const file_image = document.getElementById("file_image");
+let file_image = document.getElementById("file_image");
 const file = document.getElementById("file");
 const text = document.getElementById("text");
 const date_text = document.getElementById("date_text");
@@ -141,7 +141,8 @@ function post() {
     var now_utc = Date.now()
     var timeOff = new Date().getTimezoneOffset()*60000;
     date.value = new Date(now_utc-timeOff).toISOString().split("T")[0];
-    file_image.src = '';
+    file_image.outerHTML = '<img id="file_image">';
+    file_image = document.getElementById("file_image");
     text.value = "";
     dateChange();
     mao.setAttribute("onClick", "maoload()");
@@ -158,6 +159,9 @@ function dateChange() {
 // 파일 변경
 function fileChange() {
     if (file.files && file.files[0]) {
+        image_src = [];
+        file_image.outerHTML = '<img id="file_image">';
+        file_image = document.getElementById("file_image");
         for (var i=0; i<file.files.length; i++) {
             var reader = new FileReader();
             reader.onload = function(e) {
@@ -201,7 +205,8 @@ function imageSlide() {
 function close_detail() {
     detial.style.display = "none";
     image_src = [];
-    file_image.src = '';
+    file_image.outerHTML = '<img id="file_image">';
+    file_image = document.getElementById("file_image");
 }
 
 // 다운로드
