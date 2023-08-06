@@ -185,6 +185,8 @@ p {
     border-radius: 10dvh;
     color:#FFC91B;
     white-space: nowrap;
+    text-align: center;
+    overflow: hidden;
 }
 
 #susung {
