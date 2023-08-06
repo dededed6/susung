@@ -198,6 +198,8 @@ p {
     width: 95%;
     margin: 0%;
     text-shadow: 0.15vh 0.15vh 0px white;
+    white-space: nowrap;
+    text-align: center;
     overflow: hidden;
 }
 
