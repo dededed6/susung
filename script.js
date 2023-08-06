@@ -54,9 +54,8 @@ function search() {
     }
     const target = document.getElementById(minIndex);
     target.classList.toggle('search', true);
+    target.scrollIntoView({behavior: "smooth", block: "center"});
     setTimeout(() => target.classList.toggle('search', false), 1000);
-    const target_top = target.getBoundingClientRect().top;
-    window.scroll({top : target_top, behavior: 'smooth'});
 }
 
 // 사진/글자 토글
@@ -65,7 +64,7 @@ function switchToImage() {
     container.innerHTML = "";
     for (var i=0; i<data.length; i++) {
         for (var ii=0; ii<data[i].url.length; ii++) {
-            const new_image = '<img class="image" id="' + i.toString() + '" src="' + data[i].url[ii] + '" onclick="postit(this.id)">\n';
+            const new_image = '<img class="image" id="' + i.toString() + 'a'.repeat(ii) + '" src="' + data[i].url[ii] + '" onclick="postit(this.id)">\n';
             container.insertAdjacentHTML('afterbegin', new_image);
         }
     }
@@ -106,6 +105,9 @@ const date = document.getElementById("date");
 const mao = document.getElementById("mao");
 
 function postit(i) {
+    i = parseInt(i);
+    console.log(i);
+
     for (var ei=0; ei<data[i].url.length; ei++) {
         image_src.push(data[i].url[ei]);
     }
