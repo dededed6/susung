@@ -147,6 +147,8 @@ p {
     font-family: 'P';
     width: auto;
     height: 18dvh;
+    max-width: 40%;
+    object-fit: cover;
     filter: brightness(1);
     border: none;
     transition: filter 0.4s ease-out;
