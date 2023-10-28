@@ -31,7 +31,7 @@ body::-webkit-scrollbar {
     margin: 0%;
     padding: 0%;
     height: auto;
-    background-image: linear-gradient(to bottom, #302F2F, transparent 100%);
+    background-image: linear-gradient(to bottom, #1F1E1E, transparent 100%);
     z-index: 1;
 }
 
